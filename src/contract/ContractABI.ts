@@ -26,6 +26,11 @@ export type ABITypeRef = {
     valueFormat?: Maybe<string | number | boolean>,
 };
 
+export type ABIUnionItem = {
+    name: string,
+    header: number
+};
+
 export type ABIField = {
     name: string,
     type: ABITypeRef
@@ -33,8 +38,10 @@ export type ABIField = {
 
 export type ABIType = {
     name: string,
+    type?: 'struct' | 'union';
     header?: Maybe<number>,
-    fields: ABIField[],
+    fields?: ABIField[],
+    items?: ABIUnionItem[]
 };
 
 export type ABIArgument = {
@@ -70,6 +77,7 @@ export type ContractABI = {
     name?: Maybe<string>,
     types?: Maybe<ABIType[]>,
     errors?: Maybe<{ [key: number]: ABIError }>,
+    interfaces?: string[];
     getters?: Maybe<ABIGetter[]>;
     receivers?: Maybe<ABIReceiver[]>;
 };
